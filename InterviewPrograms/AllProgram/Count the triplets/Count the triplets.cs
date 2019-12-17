@@ -8,7 +8,7 @@ namespace InterviewPrograms
 {
     public static partial class Utility
     {
-        public static void Count_the_triplets(int[] arr)
+        public static List<string> Count_the_triplets(int[] arr)
         {
             List<string> list = new List<string>();
             for (int index = 0; index < arr.Length-1; index++)
@@ -21,6 +21,7 @@ namespace InterviewPrograms
                     }
                 }
             }
+            return list;
         }
     }
 }
