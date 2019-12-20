@@ -2,131 +2,151 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body class="container-fluid">
-	<br>
-	<div class="row">
-		<div class="col-6">
-			<div class="card">
-				<div class="card-body">
-					<span>Email Address</span>
-					<input id="emailAddress" class=form-control type="email" name=""><br>
-					<span id="emailAddressError"></span><br>
-					<input onclick="addEmailAddress();loadEmailAddress();" class="btn btn-primary" type="button" name="" value="Add">
-				</div>
-			</div>
-		</div>
-		<div class="col-6">
-			<div class="card">
-				<div class="card-body">
-					<input id="searchEmailAddressTxt" onkeyup="loadEmailAddress()" class="form-control" type="search" name="">
-					<br>
-					<input id="showEmailAddres" onclick="loadEmailAddress()" type="checkbox" name=""> Show only Enabled <br>
-					<br>
-					<table class="table">
-						<thead>
-							<tr>
-								<td style="width: 10px;"><span><b>IsEnabled</b></span></td>
-								<td><span><b>Email</b></span></td>
-								<td style="width: 20px;"><span><b>Delete</b></span></td>
-							</tr>
-						</thead>
-						<tbody id="listEmailAddress"></tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script type="text/javascript">
+    <br>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input id="emailAddress" onfocus='document.getElementById("emailAddressError").style.display = "none";' type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailAddressError" style="display:none;" class="form-text text-muted"></small>
+                    </div>
+                    <input onclick="addEmailAddress();loadEmailAddress();" class="btn btn-outline-primary" type="button" name="" value="Add">
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body" style="max-height:90vh;overflow:auto;">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Search</span>
+                        </div>
+                        <input id="searchEmailAddressTxt" onkeyup="loadEmailAddress()" placeholder="seach email address" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    
+
+                    <input id="showEmailAddres" onclick="loadEmailAddress()" type="checkbox" aria-label="Checkbox for following text input"><span><b>&nbsp; Show only enabled</b></span>
+                    <br>
+                    <br>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td style="width: 10px;"><span><b>IsEnabled</b></span></td>
+                                <td><span><b>Email</b></span></td>
+                                <td style="width: 20px;"><span><b>Delete</b></span></td>
+                            </tr>
+                        </thead>
+                        <tbody id="listEmailAddress"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
 
 
 
-		var conditions = {
-			checkName : function (object, name) {
-				return object.emailid.indexOf(name)!=-1?true:false
-			},
-			checkEnabled: function (defaultCheck, object) {
-				return	!defaultCheck || (defaultCheck && object.enabled)			
-			},
-			validateEmail: function (elementValue){      
-				var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-				return emailPattern.test(elementValue); 
-			} 
-		}
-		
-		var listEmailAddressData = JSON.parse(localStorage.getItem("data"))||[];
-		loadEmailAddress();
+        var conditions = {
+            checkName: function (object, name) {
+                return object.emailid.indexOf(name) != -1 ? true : false
+            },
+            checkEnabled: function (defaultCheck, object) {
+                return !defaultCheck || (defaultCheck && object.enabled)
+            },
+            validateEmail: function (elementValue) {
+                var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                return emailPattern.test(elementValue);
+            }
+        }
 
-		var counterIndex =0;
+        var listEmailAddressData = JSON.parse(localStorage.getItem("data")) || [];
+        loadEmailAddress();
 
-		function addEmailAddress() {
-			var emailAddress = document.getElementById("emailAddress");
-			// if(!conditions.validateEmail(emailAddress.value)){				
-			// 	var emailAddressError = document.getElementById("emailAddressError");
-			// 	emailAddressError.innerText = "Invalid Email Address";				
-			// 	return false;
-			// }			
-			listEmailAddressData.push({	
-				index:counterIndex,			
-				enabled:false,
-				emailid:emailAddress.value
-			});
-			counterIndex++			;
-			localStorage.setItem("data", JSON.stringify(listEmailAddressData));			
-		}
+        var counterIndex = 0;
 
-		function loadEmailAddress(data) {
-			var data =  data ||  listEmailAddressData;			
-			data = filterData(data);
+        function addEmailAddress() {
+            var emailAddress = document.getElementById("emailAddress");
+            // if(!conditions.validateEmail(emailAddress.value)){
+            // 	var emailAddressError = document.getElementById("emailAddressError");
+            // 	emailAddressError.innerText = "Invalid Email Address";
+            // 	return false;
+            // }
+            var errorMsgEmailAddress = document.getElementById("emailAddressError");
 
-			var table = document.getElementById("listEmailAddress");			
-			var genHtml = "";
-			for (var i = 0; i < data.length; i++) {	
-				var checked = data[i].enabled?'checked':'';		
-				genHtml+='<tr data-index='+data[i].index+'> <td><input type="checkbox" '+ checked +' onclick="updateEmailAddressCheck(this,'+data[i].index+');loadEmailAddress();" name=""> </td><td><span>'+data[i].emailid+'</span> </td><td><input class="btn btn-danger" type="button" name="" onclick="deleteEmailAddress('+data[i].index+');loadEmailAddress();" value="Delete"></td> </tr>';
-			}		
-			table.innerHTML= genHtml;	
-		}
+            for (var index = 0; index < listEmailAddressData.length; index++) {
+                if (listEmailAddressData[index].emailid == emailAddress.value) {
+                    errorMsgEmailAddress.innerText = "EmailId is already exist.";
+                    errorMsgEmailAddress.style.display = "block";
+                    return false;
+                }
+            }
 
-		function deleteEmailAddress(index) {
-			var temp = [];
-			for (var i = 0; i < listEmailAddressData.length; i++) {
-				if(listEmailAddressData[i].index==index) continue;
-				temp.push(listEmailAddressData[i]);
-			}
-			listEmailAddressData=temp;
-			localStorage.setItem("data", JSON.stringify(listEmailAddressData));
-		}
+            listEmailAddressData.push({
+                index: counterIndex,
+                enabled: false,
+                emailid: emailAddress.value
+            });
+            counterIndex++;
+            localStorage.setItem("data", JSON.stringify(listEmailAddressData));
+        }
 
-		function updateEmailAddressCheck(obj, index) {
-			for (var i = 0; i < listEmailAddressData.length; i++) {
-				if(listEmailAddressData[i].index==index){
-					listEmailAddressData[i].enabled=obj.checked;
-				}
-				continue;				
-			}
-			localStorage.setItem("data", JSON.stringify(listEmailAddressData));
-		}
+        function loadEmailAddress(data) {
+            var data = data || listEmailAddressData;
+            data = filterData(data);
 
-		function filterData(data) {
-			var searchEmailAddressTxt = document.getElementById("searchEmailAddressTxt");	
-			var showEmailAddres = document.getElementById("showEmailAddres");		
-			var temp = []
+            var table = document.getElementById("listEmailAddress");
+            var genHtml = "";
+            for (var i = 0; i < data.length; i++) {
+                var checked = data[i].enabled ? 'checked' : '';
+                genHtml += '<tr data-index=' + data[i].index + '> <td style="text-align:center;"><input type="checkbox" ' + checked + ' onclick="updateEmailAddressCheck(this,' + data[i].index + ');loadEmailAddress();" name=""> </td><td><span>' + data[i].emailid + '</span> </td><td><input class="btn btn-danger" type="button" name="" onclick="deleteEmailAddress(' + data[i].index + ');loadEmailAddress();" value="Delete"></td> </tr>';
+            }
+            table.innerHTML = genHtml;
+        }
 
-			for (var i = 0; i < data.length; i++) {				
-				if(!conditions.checkName(data[i],searchEmailAddressTxt.value)){
-					continue;
-				}
-				else if(!conditions.checkEnabled(showEmailAddres.checked,data[i])){
-					continue;
-				}
-				temp.push(data[i]);
-			}	
-			return temp;		
-		}
-	</script>
+        function deleteEmailAddress(index) {
+            var temp = [];
+            for (var i = 0; i < listEmailAddressData.length; i++) {
+                if (listEmailAddressData[i].index == index) continue;
+                temp.push(listEmailAddressData[i]);
+            }
+            listEmailAddressData = temp;
+            localStorage.setItem("data", JSON.stringify(listEmailAddressData));
+        }
+
+        function updateEmailAddressCheck(obj, index) {
+            for (var i = 0; i < listEmailAddressData.length; i++) {
+                if (listEmailAddressData[i].index == index) {
+                    listEmailAddressData[i].enabled = obj.checked;
+                }
+                continue;
+            }
+            localStorage.setItem("data", JSON.stringify(listEmailAddressData));
+        }
+
+        function filterData(data) {
+            var searchEmailAddressTxt = document.getElementById("searchEmailAddressTxt");
+            var showEmailAddres = document.getElementById("showEmailAddres");
+            var temp = []
+
+            for (var i = 0; i < data.length; i++) {
+                if (!conditions.checkName(data[i], searchEmailAddressTxt.value)) {
+                    continue;
+                }
+                else if (!conditions.checkEnabled(showEmailAddres.checked, data[i])) {
+                    continue;
+                }
+                temp.push(data[i]);
+            }
+            return temp;
+        }
+    </script>
 </body>
 </html>
