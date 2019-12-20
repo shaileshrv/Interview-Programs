@@ -43,9 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllProgram\Anagram\Anagram.cs" />
-    <Compile Include="AllProgram\CharCountInString\GetCharCountInString.cs" />
+    <Compile Include="Programming Questions on Strings\Anagram\Anagram.cs" />
+    <Compile Include="Programming Questions on Strings\CharCountInString\GetCharCountInString.cs" />
     <Compile Include="AllProgram\Fibonaci\Fibonaci.cs" />
+    <Compile Include="AllProgram\Find Maximum Positive Index\Find Maximum Positive Index.cs" />
     <Compile Include="AllProgram\FindMissingNumberInRange\FindMissingNumbersInRange.cs" />
     <Compile Include="AllProgram\FindNthLowestNumberInArray\FindNthLowestNumberInArray.cs" />
     <Compile Include="AllProgram\FindNthHigestNumberInArray\FindNthHigestNumberInArray.cs" />
@@ -54,10 +55,12 @@
     <Compile Include="AllProgram\GetMissingNumber\GetMissingNumbers.cs" />
     <Compile Include="AllProgram\GetNumberCount\GetNumberCounts.cs" />
     <Compile Include="AllProgram\GetUniqueFromList\GetUniqueFromList.cs" />
-    <Compile Include="AllProgram\UniqueLetters\UniqueLetters.cs" />
+    <Compile Include="Programming Questions on Strings\Reverse String\Reverse_String.cs" />
+    <Compile Include="Programming Questions on Strings\UniqueLetters\UniqueLetters.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="AllProgram\Pelindrom\Pelindrom.cs" />
-    <Compile Include="AllProgram\ReplaceChar\ReplaceChar.cs" />
+    <Compile Include="Programming Questions on Strings\Pelindrom\Pelindrom.cs" />
+    <Compile Include="Programming Questions on Strings\ReplaceChar\ReplaceChar.cs" />
+    <Compile Include="Programming Questions on Strings\duplicate characters\duplicate characters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="utility.cs" />
   </ItemGroup>
@@ -65,7 +68,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AllProgram\Pelindrom\readme.txt" />
+    <Content Include="AllProgram\Find Maximum Positive Index\Readme.txt" />
+    <Content Include="Programming Questions on Strings\Pelindrom\readme.txt" />
+    <Content Include="readme.txt" />
+    <Content Include="WebApp\CRUD in JS\index.html" />
+    <Content Include="WebApp\CRUD in JS\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
