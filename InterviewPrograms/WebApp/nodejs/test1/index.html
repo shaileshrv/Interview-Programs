@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script>
+        var myApp = angular.module("myApp", []);
+        myApp.controller("testCtrl", function ($scope, $http) {
+            $http.get("http://localhost:8080/product/C1001").then(function (response) {
+                console.log(response);
+            })
+
+            $http.post("http://localhost:8080/product/add", { code: 'C1009', name: 'Test', quantity: 10, prize: 20}).then(function (response) {
+                console.log(response);
+            })
+        });
+    </script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="testCtrl">
+
+    </div>
+</body>
+</html>
